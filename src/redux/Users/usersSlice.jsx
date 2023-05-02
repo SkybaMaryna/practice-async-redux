@@ -1,5 +1,10 @@
 const { createSlice } = require('@reduxjs/toolkit');
-const { fetchUsers, fetchUser, deleteUser } = require('./usersOperations');
+const {
+  fetchUsers,
+  fetchUser,
+  deleteUser,
+  addUser,
+} = require('./usersOperations');
 
 const initialState = {
   users: [],
@@ -71,6 +76,11 @@ const usersSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.users = state.users.filter(user => user.id !== action.payload);
+      })
+      .addCase(addUser.fulfilled, (state, { payload }) => {
+        state.users.push(payload);
+        state.isLoading = false;
+        state.error = null;
       })
       .addMatcher(
         action => action.type.endsWith('pending'),
