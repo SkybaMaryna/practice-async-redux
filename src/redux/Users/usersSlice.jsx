@@ -4,6 +4,7 @@ const {
   fetchUser,
   deleteUser,
   addUser,
+  updateUser,
 } = require('./usersOperations');
 
 const initialState = {
@@ -81,6 +82,11 @@ const usersSlice = createSlice({
         state.users.push(payload);
         state.isLoading = false;
         state.error = null;
+      })
+      .addCase(updateUser.fulfilled, (state, { payload }) => {
+        state.currentUser = payload;
+        const index = state.users.findIndex(user => user.id === payload.id);
+        state.users = state.users.splice(index, 1, payload);
       })
       .addMatcher(
         action => action.type.endsWith('pending'),

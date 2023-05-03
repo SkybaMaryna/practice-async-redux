@@ -50,3 +50,15 @@ export const addUser = createAsyncThunk(
     }
   }
 );
+
+export const updateUser = createAsyncThunk(
+  'users/updateUser',
+  async (user, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(`/users/${user.id}`, user);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

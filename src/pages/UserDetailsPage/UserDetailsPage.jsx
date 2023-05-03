@@ -1,7 +1,7 @@
 import { Modal } from 'components/Modal/Modal';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { fetchUser } from 'redux/Users/usersOperations';
 import { selectCurrentUser } from 'redux/Users/usersSelectors';
 
@@ -36,6 +36,7 @@ export const UserDetailsPage = () => {
             Delete
           </button>
           {userId && <Modal id={userId} onClose={closeModal} />}
+          <Link to="update">Update</Link>
         </>
       )}
     </div>
